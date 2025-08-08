@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <th:block th:fragment="home_sections">
+    <section data-home-sections class="relative z-10 mx-auto my-24 grid w-full max-w-5xl grid-cols-1 gap-6 px-4 md:grid-cols-4">
+      <!-- 点点滴滴（博文） -->
+      <a
+        th:href="@{${theme.config.home.sections.posts.link}}"
+        class="group flex h-32 items-center justify-center rounded-xl bg-white/90 p-6 text-center shadow transition hover:shadow-lg"
+      >
+        <div>
+          <div class="mb-2 text-2xl font-semibold text-gray-900" th:text="${theme.config.home.sections.posts.label}">点点滴滴</div>
+          <div class="text-sm text-gray-500">记录我们的故事</div>
+        </div>
+      </a>
+      <!-- 恋爱瞬间 -->
+      <a
+        th:href="@{${theme.config.home.sections.moments.link}}"
+        class="group flex h-32 items-center justify-center rounded-xl bg-white/90 p-6 text-center shadow transition hover:shadow-lg"
+      >
+        <div>
+          <div class="mb-2 text-2xl font-semibold text-gray-900" th:text="${theme.config.home.sections.moments.label}">恋爱瞬间</div>
+          <div class="text-sm text-gray-500">怦然心动的片刻</div>
+        </div>
+      </a>
+      <!-- 恋爱相册 -->
+      <a
+        th:href="@{${theme.config.home.sections.album.link}}"
+        class="group flex h-32 items-center justify-center rounded-xl bg-white/90 p-6 text-center shadow transition hover:shadow-lg"
+      >
+        <div>
+          <div class="mb-2 text-2xl font-semibold text-gray-900" th:text="${theme.config.home.sections.album.label}">恋爱相册</div>
+          <div class="text-sm text-gray-500">把美好定格</div>
+        </div>
+      </a>
+      <!-- 关于我们 -->
+      <a
+        th:href="@{${theme.config.home.sections.about.link}}"
+        class="group flex h-32 items-center justify-center rounded-xl bg-white/90 p-6 text-center shadow transition hover:shadow-lg"
+      >
+        <div>
+          <div class="mb-2 text-2xl font-semibold text-gray-900" th:text="${theme.config.home.sections.about.label}">关于我们</div>
+          <div class="text-sm text-gray-500">走进彼此</div>
+        </div>
+      </a>
+    </section>
+  </th:block>
+</html>
+
+

@@ -1,7 +1,7 @@
 apiVersion: v1alpha1
 kind: Setting
 metadata:
-  name: theme-modern-starter-setting
+  name: theme-lovediary-setting
 spec:
   forms:
     - group: post
@@ -37,3 +37,176 @@ spec:
               label: prose-neutral
             - value: prose-stone
               label: prose-stone
+    - group: home
+      label: 首页
+      formSchema:
+        - $formkit: select
+          name: hero_type
+          id: hero_type
+          key: hero_type
+          label: 顶部展示类型
+          value: carousel
+          options:
+            - value: carousel
+              label: 轮播图
+            - value: video
+              label: 视频
+        - $formkit: attachment
+          name: hero_video_url
+          id: hero_video_url
+          key: hero_video_url
+          label: 视频地址（mp4）
+          help: 当选择视频时生效
+          if: $get(hero_type).value == 'video'
+        - $formkit: repeater
+          name: hero_carousel_images
+          id: hero_carousel_images
+          key: hero_carousel_images
+          label: 轮播图（可添加多张）
+          if: $get(hero_type).value == 'carousel'
+          children:
+            - $formkit: attachment
+              name: url
+              id: url
+              key: url
+              label: 图片地址
+            - $formkit: text
+              name: alt
+              id: alt
+              key: alt
+              label: 图片说明
+        - $formkit: group
+          name: hero_carousel_options
+          id: hero_carousel_options
+          key: hero_carousel_options
+          label: 轮播图设置
+          if: $get(hero_type).value == 'carousel'
+          children:
+            - $formkit: number
+              name: interval_ms
+              id: interval_ms
+              key: interval_ms
+              label: 切换间隔（毫秒）
+              value: 5000
+              min: 0
+              step: 100
+            - $formkit: number
+              name: transition_ms
+              id: transition_ms
+              key: transition_ms
+              label: 动画时长（毫秒）
+              value: 600
+              min: 0
+              step: 50
+            - $formkit: select
+              name: transition
+              id: transition
+              key: transition
+              label: 切换方式
+              value: fade
+              options:
+                - value: fade
+                  label: 渐隐（淡入淡出）
+                - value: slide
+                  label: 滑动切换
+            - $formkit: radio
+              name: show_arrows
+              id: show_arrows
+              key: show_arrows
+              label: 显示左右箭头
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+            - $formkit: radio
+              name: show_indicators
+              id: show_indicators
+              key: show_indicators
+              label: 显示指示点
+              value: true
+              options:
+                - label: 显示
+                  value: true
+                - label: 隐藏
+                  value: false
+        - $formkit: group
+          name: couple
+          label: 情侣信息
+          children:
+            - $formkit: text
+              name: male_name
+              label: 男主昵称
+            - $formkit: attachment
+              name: male_avatar
+              label: 男主头像
+            - $formkit: attachment
+              name: logo
+              label: LOGO 图片
+            - $formkit: attachment
+              name: female_avatar
+              label: 女主头像
+            - $formkit: text
+              name: female_name
+              label: 女主昵称
+        - $formkit: group
+          name: relationship_start
+          label: 在一起时间
+          children:
+            - $formkit: date
+              name: date
+              label: 日期
+              help: 选择纪念日日期（年月日）
+        - $formkit: group
+          name: sections
+          label: 首页四区块
+          children:
+            - $formkit: group
+              name: posts
+              label: 点点滴滴（博文）
+              children:
+                - $formkit: text
+                  name: label
+                  label: 标题
+                  value: 点点滴滴
+                - $formkit: text
+                  name: link
+                  label: 链接
+                  value: /archives
+            - $formkit: group
+              name: moments
+              label: 恋爱瞬间
+              children:
+                - $formkit: text
+                  name: label
+                  label: 标题
+                  value: 恋爱瞬间
+                - $formkit: text
+                  name: link
+                  label: 链接
+                  value: /moments
+            - $formkit: group
+              name: album
+              label: 恋爱相册
+              children:
+                - $formkit: text
+                  name: label
+                  label: 标题
+                  value: 恋爱相册
+                - $formkit: text
+                  name: link
+                  label: 链接
+                  value: /album
+            - $formkit: group
+              name: about
+              label: 关于我们
+              children:
+                - $formkit: text
+                  name: label
+                  label: 标题
+                  value: 关于我们
+                - $formkit: text
+                  name: link
+                  label: 链接
+                  value: /about

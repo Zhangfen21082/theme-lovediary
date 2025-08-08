@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <th:block th:fragment="home_hero">
+    <section
+      class="relative flex h-screen w-full flex-col items-center justify-end overflow-hidden bg-black"
+      x-data="hero()"
+      th:attr="data-hero-type=${theme.config.home.hero_type}, data-hero-video-url=${theme.config.home.hero_video_url}, data-carousel-interval=${theme.config.home.hero_carousel_options.interval_ms}, data-carousel-transition=${theme.config.home.hero_carousel_options.transition}, data-carousel-transition-ms=${theme.config.home.hero_carousel_options.transition_ms}, data-carousel-arrows=${theme.config.home.hero_carousel_options.show_arrows}, data-carousel-indicators=${theme.config.home.hero_carousel_options.show_indicators}"
+    >
+      <!-- Video -->
+      <video
+        x-show="type === 'video' && videoUrl"
+        x-bind:src="videoUrl"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="absolute inset-0 h-full w-full object-cover"
+      ></video>
+
+      <!-- Carousel: render images from settings -->
+      <div x-show="type === 'carousel'" class="absolute inset-0">
+        <!-- 左右箭头（可配置） -->
+        <button
+          x-show="showArrows && slideCount > 1"
+          @click="prev()"
+          class="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur hover:bg-black/60"
+          aria-label="prev"
+        >
+          <span class="i-tabler-chevron-left text-2xl"></span>
+        </button>
+        <button
+          x-show="showArrows && slideCount > 1"
+          @click="next()"
+          class="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white backdrop-blur hover:bg-black/60"
+          aria-label="next"
+        >
+          <span class="i-tabler-chevron-right text-2xl"></span>
+        </button>
+        <!-- Fade 模式：堆叠图片，通过 opacity 过渡 -->
+        <div x-show="transition === 'fade'" class="absolute inset-0">
+          <th:block th:if="${theme.config.home.hero_carousel_images}">
+            <img
+              th:each="image, iterStat : ${theme.config.home.hero_carousel_images}"
+              th:src="${image.url}"
+              th:alt="${image.alt}"
+              class="absolute inset-0 h-full w-full object-cover"
+              th:attr="data-slide-index=${iterStat.index}"
+              x-bind:class="{ 'opacity-100': currentIndex === Number($el.dataset.slideIndex), 'opacity-0': currentIndex !== Number($el.dataset.slideIndex) }"
+              x-bind:style="'transition: opacity ' + transitionMs + 'ms ease-in-out'"
+            />
+          </th:block>
+        </div>
+
+        <!-- Slide 模式：走马灯容器，通过 translateX 过渡 -->
+        <div x-show="transition === 'slide'" class="absolute inset-0 overflow-hidden">
+          <div
+            x-ref="track"
+            class="flex h-full w-full"
+            x-bind:style="'height:100%; width:100%; transform: translateX(-' + (positionIndex * 100) + '%); ' + (transitionEnabled ? ('transition: transform ' + transitionMs + 'ms ease-in-out') : 'transition: none')"
+          >
+            <th:block th:if="${theme.config.home.hero_carousel_images}">
+              <div th:each="image, iterStat : ${theme.config.home.hero_carousel_images}" class="h-full w-full shrink-0">
+                <img
+                  th:src="${image.url}"
+                  th:alt="${image.alt}"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <!-- 克隆第一张用于首尾无缝循环 -->
+              <div class="h-full w-full shrink-0" th:if="${#lists.size(theme.config.home.hero_carousel_images) > 0}">
+                <img
+                  th:src="${theme.config.home.hero_carousel_images[0].url}"
+                  th:alt="${theme.config.home.hero_carousel_images[0].alt}"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </th:block>
+          </div>
+        </div>
+        <!-- Indicators -->
+        <div x-show="showIndicators && slideCount > 1" class="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+          <button
+            th:each="image, iterStat : ${theme.config.home.hero_carousel_images}"
+            class="h-2 w-2 rounded-full bg-white/60"
+            x-bind:class="{ 'bg-white': currentIndex === Number($el.dataset.index) }"
+            @click="go(Number($el.dataset.index))"
+            th:attr="data-index=${iterStat.index}"
+          ></button>
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/30"></div>
+
+      <!-- 中心内容：情侣头像/LOGO + 计时器 -->
+      <div class="pointer-events-none relative z-10 flex h-full w-full flex-col items-center justify-center px-4">
+        <div class="pointer-events-auto">
+          <th:block th:replace="~{modules/home-couple :: home_couple}"></th:block>
+        </div>
+        <div class="pointer-events-auto mt-8">
+          <th:block th:replace="~{modules/home-counter :: home_counter}"></th:block>
+        </div>
+      </div>
+
+      <!-- 下滑箭头 -->
+      <button
+        @click="scrollToNext()"
+        class="relative z-10 mb-6 flex h-10 w-10 animate-bounce items-center justify-center rounded-full bg-white/80 text-gray-900 shadow"
+        aria-label="scroll down"
+      >
+        <span class="i-tabler-chevron-down text-2xl"></span>
+      </button>
+    </section>
+  </th:block>
+</html>
+
+

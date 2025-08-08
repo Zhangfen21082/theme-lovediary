@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <th:block th:fragment="home_couple">
+    <section class="relative z-10 mx-auto flex max-w-5xl items-center justify-center gap-8 px-4">
+      <!-- 男主 -->
+      <div class="flex flex-col items-center gap-3 text-center">
+        <img
+          th:src="${theme.config.home.couple.male_avatar}"
+          alt="male"
+          class="h-28 w-28 rounded-full border-4 border-white object-cover shadow-lg"
+        />
+        <div class="text-sm font-medium text-white" th:text="${theme.config.home.couple.male_name}">他</div>
+      </div>
+      <!-- LOGO 居中放大对齐 -->
+      <div class="flex flex-col items-center gap-3 text-center">
+        <img
+          th:src="${theme.config.home.couple.logo}"
+          alt="logo"
+          class="h-16 w-16 rounded-xl border-4 border-white bg-white/80 object-contain p-2 shadow-lg backdrop-blur"
+        />
+      </div>
+      <!-- 女主 -->
+      <div class="flex flex-col items-center gap-3 text-center">
+        <img
+          th:src="${theme.config.home.couple.female_avatar}"
+          alt="female"
+          class="h-28 w-28 rounded-full border-4 border-white object-cover shadow-lg"
+        />
+        <div class="text-sm font-medium text-white" th:text="${theme.config.home.couple.female_name}">她</div>
+      </div>
+    </section>
+  </th:block>
+</html>
+
+
