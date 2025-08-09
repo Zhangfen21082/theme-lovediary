@@ -159,6 +159,79 @@ spec:
               label: 日期
               help: 选择纪念日日期（年月日）
         - $formkit: group
+          name: hero_effects
+          label: 首屏动效
+          children:
+            - $formkit: radio
+              name: enable_kenburns
+              label: 启用 Ken Burns（慢速缩放/平移）
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: kenburns_scale_from
+              label: 缩放起始（例如 1.05）
+              value: 1.05
+              step: 0.01
+            - $formkit: number
+              name: kenburns_scale_to
+              label: 缩放结束（例如 1.15）
+              value: 1.15
+              step: 0.01
+            - $formkit: number
+              name: kenburns_duration_ms
+              label: 动画时长（毫秒）
+              value: 20000
+              step: 100
+            - $formkit: radio
+              name: enable_parallax
+              label: 启用轻度视差
+              value: false
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: parallax_strength
+              label: 视差强度（0-1，建议 0.1-0.3）
+              value: 0.15
+              step: 0.01
+        - $formkit: group
+          name: interactions
+          label: 交互
+          children:
+            - $formkit: radio
+              name: enable_swipe_up
+              label: 移动端上滑跳转
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+        - $formkit: group
+          name: counter_effects
+          label: 计时器动效
+          children:
+            - $formkit: radio
+              name: enable_digit_roll
+              label: 数字滚动切换
+              value: true
+              options:
+                - label: 启用
+                  value: true
+                - label: 禁用
+                  value: false
+            - $formkit: number
+              name: digit_roll_ms
+              label: 数字滚动时长（毫秒）
+              value: 300
+              step: 50
+        - $formkit: group
           name: sections
           label: 首页四区块
           children:

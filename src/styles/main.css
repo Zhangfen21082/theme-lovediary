@@ -5,3 +5,81 @@ body {
 ul {
   list-style: decimal;
 }
+
+/* Ken Burns 基础类（如果需要可由脚本注入内联 style 覆盖）*/
+.kenburns {
+  will-change: transform;
+  animation-name: kb-zoom;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes kb-zoom {
+  from {
+    transform: scale(var(--kb-from, 1)) translate3d(var(--kb-tx-from, 0), var(--kb-ty-from, 0), 0);
+  }
+  to {
+    transform: scale(var(--kb-to, 1.1)) translate3d(var(--kb-tx-to, 0), var(--kb-ty-to, 0), 0);
+  }
+}
+
+/* 向下箭头 hover 轻度旋转与阴影 */
+.arrow-hover:hover {
+  transform: rotate(6deg) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* 数字滚动：容器内每次更新 translateY */
+.digit-roll {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: block;
+  min-width: 3ch; /* 至少容纳两位数字 */
+  font-variant-numeric: tabular-nums; /* 等宽数字，避免抖动 */
+}
+.digit-roll-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transition-timing-function: ease-in-out;
+}
+.digit-roll-item {
+  width: 100%;
+  height: 2.5rem; /* 与 h-10/ text-3xl 的行高保持一致 */
+  line-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* 简易彩带粒子层 */
+.confetti-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 60;
+}
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  background: var(--c, #ff477e);
+  opacity: 0.9;
+  transform: translate3d(0,-20px,0) rotate(0deg);
+  animation: confetti-fall var(--dur, 1200ms) ease-out forwards;
+}
+@keyframes confetti-fall {
+  to {
+    transform: translate3d(var(--dx, 0), 110vh, 0) rotate(var(--rot, 360deg));
+    opacity: 1;
+  }
+}

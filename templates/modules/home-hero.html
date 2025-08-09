@@ -4,7 +4,7 @@
     <section
       class="relative flex h-screen w-full flex-col items-center justify-end overflow-hidden bg-black"
       x-data="hero()"
-      th:attr="data-hero-type=${theme.config.home.hero_type}, data-hero-video-url=${theme.config.home.hero_video_url}, data-carousel-interval=${theme.config.home.hero_carousel_options.interval_ms}, data-carousel-transition=${theme.config.home.hero_carousel_options.transition}, data-carousel-transition-ms=${theme.config.home.hero_carousel_options.transition_ms}, data-carousel-arrows=${theme.config.home.hero_carousel_options.show_arrows}, data-carousel-indicators=${theme.config.home.hero_carousel_options.show_indicators}"
+      th:attr="data-hero-type=${theme.config.home.hero_type}, data-hero-video-url=${theme.config.home.hero_video_url}, data-carousel-interval=${theme.config.home.hero_carousel_options.interval_ms}, data-carousel-transition=${theme.config.home.hero_carousel_options.transition}, data-carousel-transition-ms=${theme.config.home.hero_carousel_options.transition_ms}, data-carousel-arrows=${theme.config.home.hero_carousel_options.show_arrows}, data-carousel-indicators=${theme.config.home.hero_carousel_options.show_indicators}, data-kenburns=${theme.config.home.hero_effects.enable_kenburns}, data-kenburns-scale-from=${theme.config.home.hero_effects.kenburns_scale_from}, data-kenburns-scale-to=${theme.config.home.hero_effects.kenburns_scale_to}, data-kenburns-duration-ms=${theme.config.home.hero_effects.kenburns_duration_ms}, data-parallax=${theme.config.home.hero_effects.enable_parallax}, data-parallax-strength=${theme.config.home.hero_effects.parallax_strength}, data-swipe-up=${theme.config.home.interactions.enable_swipe_up}, data-digit-roll=${theme.config.home.counter_effects.enable_digit_roll}, data-digit-roll-ms=${theme.config.home.counter_effects.digit_roll_ms}"
     >
       <!-- Video -->
       <video
@@ -14,7 +14,8 @@
         muted
         loop
         playsinline
-        class="absolute inset-0 h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full origin-center object-cover kenburns"
+        x-bind:style="kenburnsEnabled && type === 'video' ? kenburnsVars : ''"
       ></video>
 
       <!-- Carousel: render images from settings -->
@@ -43,10 +44,10 @@
               th:each="image, iterStat : ${theme.config.home.hero_carousel_images}"
               th:src="${image.url}"
               th:alt="${image.alt}"
-              class="absolute inset-0 h-full w-full object-cover"
+              class="absolute inset-0 h-full w-full origin-center object-cover kenburns"
               th:attr="data-slide-index=${iterStat.index}"
               x-bind:class="{ 'opacity-100': currentIndex === Number($el.dataset.slideIndex), 'opacity-0': currentIndex !== Number($el.dataset.slideIndex) }"
-              x-bind:style="'transition: opacity ' + transitionMs + 'ms ease-in-out'"
+              x-bind:style="(kenburnsEnabled ? kenburnsVars + '; ' : '') + 'transition: opacity ' + transitionMs + 'ms ease-in-out'"
             />
           </th:block>
         </div>
@@ -105,7 +106,7 @@
       <!-- 下滑箭头 -->
       <button
         @click="scrollToNext()"
-        class="relative z-10 mb-6 flex h-10 w-10 animate-bounce items-center justify-center rounded-full bg-white/80 text-gray-900 shadow"
+        class="arrow-hover relative z-10 mb-6 flex h-10 w-10 animate-bounce items-center justify-center rounded-full bg-white/80 text-gray-900 shadow"
         aria-label="scroll down"
       >
         <span class="i-tabler-chevron-down text-2xl"></span>

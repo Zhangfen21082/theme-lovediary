@@ -9,19 +9,47 @@
       <div class="text-xl font-semibold text-white drop-shadow">这是我们走过的</div>
       <div class="grid grid-cols-4 gap-2">
         <div class="rounded-lg bg-white/80 px-4 py-3 shadow backdrop-blur">
-          <div class="text-3xl font-bold" x-text="time.days">0</div>
+          <div class="relative h-10 leading-none" style="height: 2.5rem;">
+            <div class="digit-roll text-3xl font-bold" data-unit="days">
+              <div class="digit-roll-track">
+                <div class="digit-roll-item">0</div>
+                <div class="digit-roll-item">1</div>
+              </div>
+            </div>
+          </div>
           <div class="text-xs text-gray-600">天</div>
         </div>
         <div class="rounded-lg bg-white/80 px-4 py-3 shadow backdrop-blur">
-          <div class="text-3xl font-bold" x-text="time.hours">0</div>
+          <div class="relative h-10 leading-none" style="height: 2.5rem;">
+            <div class="digit-roll text-3xl font-bold" data-unit="hours">
+              <div class="digit-roll-track">
+                <div class="digit-roll-item">0</div>
+                <div class="digit-roll-item">1</div>
+              </div>
+            </div>
+          </div>
           <div class="text-xs text-gray-600">时</div>
         </div>
         <div class="rounded-lg bg-white/80 px-4 py-3 shadow backdrop-blur">
-          <div class="text-3xl font-bold" x-text="time.minutes">0</div>
+          <div class="relative h-10 leading-none" style="height: 2.5rem;">
+            <div class="digit-roll text-3xl font-bold" data-unit="minutes">
+              <div class="digit-roll-track">
+                <div class="digit-roll-item">0</div>
+                <div class="digit-roll-item">1</div>
+              </div>
+            </div>
+          </div>
           <div class="text-xs text-gray-600">分</div>
         </div>
         <div class="rounded-lg bg-white/80 px-4 py-3 shadow backdrop-blur">
-          <div class="text-3xl font-bold" x-text="time.seconds">0</div>
+          <div class="relative h-10 leading-none" style="height: 2.5rem;">
+            <div class="digit-roll text-3xl font-bold" data-unit="seconds">
+              <div class="digit-roll-track">
+                <div class="digit-roll-item">0</div>
+                <div class="digit-roll-item">1</div>
+              </div>
+            </div>
+          </div>
           <div class="text-xs text-gray-600">秒</div>
         </div>
       </div>
